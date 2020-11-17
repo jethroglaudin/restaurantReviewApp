@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/api/v1/users/", users);
-app.use("api/v1/restaurants/", restaurants);
+app.use("/api/v1/restaurants/", restaurants);
 
 if(app.get('env' === 'development')){
   app.use(morgan('dev'));
