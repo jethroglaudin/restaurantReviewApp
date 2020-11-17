@@ -1,6 +1,25 @@
 require("dotenv").config();
 const db = require("../db/index");
 
+
+exports.test = async (req, res) => {
+  try {
+    const restaurantRatingsData = await db.query(
+      `select * from restaurants`
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: restaurantRatingsData.rows.length.length,
+      data: {
+        restaurants: restaurantRatingsData.rows,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ errors: error });
+    console.error(error);
+  }
+};
 // get all restaurants
 exports.allRestaurants = async (req, res) => {
   try {
