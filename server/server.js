@@ -3,20 +3,24 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require("cors");
 const app = express();
 
 const users = require("./routes/users");
+const restaurants = require("./routes/restaurants");
 
 
 // const dotenv = require("dotenv").config( { path: "./config/config.env"});
 const PORT = process.env.PORT || 4001;
 
-
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
+
 
 app.use("/api/v1/users/", users);
+app.use("api/v1/restaurants/", restaurants);
 
 if(app.get('env' === 'development')){
   app.use(morgan('dev'));
@@ -33,19 +37,7 @@ mongoose.connect("mongodb+srv://jethroglaudin:4534123cC!@yelp.leqzd.mongodb.net/
 .catch((err) => console.log(err));
 
 
-// Get all restaurants
-app.get("/api/v1/restaurants", async (req, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      restaurants: ["mcdonalds", "wendys"],
-    },
-  });
-});
 
-app.get("/api/v1/restaurants/:restaurantid", async (req, res) => {
-    console.log(req.params);
-})
 
 
 const server = app.listen(PORT, () =>
