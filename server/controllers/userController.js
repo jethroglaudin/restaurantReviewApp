@@ -1,11 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-// const dotenv = require("dotenv");
-
-// dotenv.config({ path: "./config/config.env" });
-
 const { User, validateUser } = require("../Models/User");
 // @route GET api/users/test
 // @desc: Test Get route
