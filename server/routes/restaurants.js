@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { allRestaurants, getRestaurant, 
+const { test, allRestaurants, getRestaurant, 
     createRestaurant, updateRestaurant,
      deleteRestaurant, addReview } = require("../controllers/restaurantController");
 
 const auth = require("../middleware/auth");
 
+router.get("/test", test);
 router.get("/", allRestaurants);
 router.get("/:id", getRestaurant);
 router.post("/", createRestaurant);
