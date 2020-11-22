@@ -119,11 +119,14 @@ exports.updateRestaurant = async (req, res) => {
 
 exports.deleteRestaurant = async (req, res) => {
   try {
-    const results = await db("DELETE FROM restaurants where id = $1", [
+    const results = await db.query("DELETE FROM restaurants where id = $1", [
       req.params.id,
     ]);
     res.status(204).json({
       status: "success",
+      data: {
+        restaurant: results.rows[0]
+      }
     });
   } catch (error) {
     res.status(500).json({ errors: error });
