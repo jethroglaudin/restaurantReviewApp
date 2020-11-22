@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AddRestaurant = () => {
+    const [ name, setName ] = useState("");
+    const [location, setLocation] = useState("");
+    const [ priceRange, setPriceRange ] = useState("");
     return (
         <div className="mb-4">
             <form action="">
