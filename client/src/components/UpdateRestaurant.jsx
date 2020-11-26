@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const UpdateRestaurant = (props) => {
   const { id } = useParams();
+  const { restaurants } = useContext(RestaurantsContext);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [price_range, setPriceRange] = useState("");
 
   return (
     <div>
+      <h1>{restaurants[0].name} </h1>
       <form action="">
         <div className="form-group">
           <label htmlFor="name">Name</label>
