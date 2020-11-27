@@ -1,12 +1,9 @@
 require("dotenv").config();
 const db = require("../db/index");
 
-
 exports.test = async (req, res) => {
   try {
-    const restaurantRatingsData = await db.query(
-      `select * from restaurants`
-    );
+    const restaurantRatingsData = await db.query(`select * from restaurants`);
 
     res.status(200).json({
       status: "success",
@@ -28,9 +25,7 @@ exports.allRestaurants = async (req, res) => {
     //       as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id;`
     // );
 
-    const restaurantRatingsData = await db.query(
-      `select * from restaurants;`
-    )
+    const restaurantRatingsData = await db.query(`select * from restaurants;`);
 
     res.status(200).json({
       status: "success",
@@ -49,21 +44,25 @@ exports.allRestaurants = async (req, res) => {
 exports.getRestaurant = async (req, res) => {
   try {
     const restaurant = await db.query(
-      "select * from restaurants left join (select restaurant_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = $1",
+      "select * from restaurants where id = $1",
       [req.params.id]
     );
+    // const restaurant = await db.query(
+    //   "select * from restaurants left join (select restaurant_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = $1",
+    //   [req.params.id]
+    // );
 
-    const reviews = await db.query(
-      "select * from reviews where restaurant_id = $1",
-      [req.params.id]
-    );
+    // const reviews = await db.query(
+    //   "select * from reviews where restaurant_id = $1",
+    //   [req.params.id]
+    // );
 
-    console.log(reviews);
+    // console.log(restaurant);
     res.status(200).json({
       status: "success",
       data: {
         restaurant: restaurant.rows[0],
-        reviews: reviews.rows,
+        // reviews: reviews.rows,
       },
     });
   } catch (error) {
@@ -125,8 +124,8 @@ exports.deleteRestaurant = async (req, res) => {
     res.status(204).json({
       status: "success",
       data: {
-        restaurant: results.rows[0]
-      }
+        restaurant: results.rows[0],
+      },
     });
   } catch (error) {
     res.status(500).json({ errors: error });
