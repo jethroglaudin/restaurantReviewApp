@@ -1,4 +1,4 @@
-import React, { useEffect, useContext,  } from "react";
+import React, { useEffect, useContext } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useHistory } from "react-router-dom";
@@ -18,7 +18,8 @@ export const RestaurantList = (props) => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
     try {
       const response = await RestaurantFinder.delete(`/${id}`);
       setRestaurants(
@@ -31,9 +32,14 @@ export const RestaurantList = (props) => {
     }
   };
 
-  const handleUpdate = async (id) => {
+  const handleUpdate = async (e, id) => {
+    e.stopPropagation();
     history.push(`/restaurants/${id}/update`);
-  }
+  };
+
+  const handleRestaurantSelect = (id) => {
+    history.push(`/restaurants/${id}`);
+  };
 
   return (
     <div className="list-group">
@@ -52,17 +58,26 @@ export const RestaurantList = (props) => {
           {restaurants &&
             restaurants.map((restaurant) => {
               return (
-                <tr key={restaurant.id}>
+                <tr
+                  onClick={() => handleRestaurantSelect(restaurant.id)}
+                  key={restaurant.id}
+                  style={{ cursor: "pointer" }}
+                >
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
                   <td>reviews</td>
                   <td>
-                    <button onClick={() => handleUpdate(restaurant.id)} className="btn btn-warning">Update</button>
+                    <button
+                      onClick={(e) => handleUpdate(e, restaurant.id)}
+                      className="btn btn-warning"
+                    >
+                      Update
+                    </button>
                   </td>
                   <td>
                     <button
-                      onClick={() => handleDelete(restaurant.id)}
+                      onClick={(e) => handleDelete(e, restaurant.id)}
                       className="btn btn-danger"
                     >
                       Delete
