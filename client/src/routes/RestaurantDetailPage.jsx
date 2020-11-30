@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import RestaurantDetail from "../components/RestaurantDetail";
 
 const RestaurantDetailPage = () => {
-    return (
-        <div>
-            Detail Page
-        </div>
-    )
-}
+  return (
+    <div>
+      <RestaurantDetail />
+    </div>
+  );
+};
 
 export default RestaurantDetailPage;
