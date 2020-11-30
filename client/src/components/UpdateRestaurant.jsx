@@ -8,7 +8,7 @@ const UpdateRestaurant = (props) => {
   const { restaurants } = useContext(RestaurantsContext);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [price_range, setPriceRange] = useState("");
+  const [priceRange, setPriceRange] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +21,15 @@ const UpdateRestaurant = (props) => {
     fetchData();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedRestaurant = await RestaurantFinder.put(`/${id}`, {
+      name,
+      location,
+      price_range: priceRange,
+    });
+    console.log(updatedRestaurant);
+  };
   return (
     <div>
       <form action="">
@@ -49,14 +58,20 @@ const UpdateRestaurant = (props) => {
         <div className="form-group">
           <label htmlFor="price_range">Price Range</label>
           <input
-            value={price_range}
+            value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
             id="price_range"
             className="form-control"
             type="number"
           />
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
