@@ -5,6 +5,7 @@ import {
   RestaurantContextProvider,
   RestaurantsContext,
 } from "../context/RestaurantsContext";
+import StarRating from "./StarRating";
 
 const RestaurantDetail = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const RestaurantDetail = () => {
     };
     fetchData();
   }, []);
-  return <div>{selectedRestaurant && selectedRestaurant.name}</div>;
+  return <div>{selectedRestaurant && <StarRating rating={3.3} />}</div>;
 };
 
 export default RestaurantDetail;
