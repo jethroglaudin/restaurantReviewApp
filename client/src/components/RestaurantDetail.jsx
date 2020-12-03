@@ -5,6 +5,7 @@ import {
   RestaurantContextProvider,
   RestaurantsContext,
 } from "../context/RestaurantsContext";
+import Reviews from "./Reviews";
 import StarRating from "./StarRating";
 
 const RestaurantDetail = () => {
@@ -25,7 +26,18 @@ const RestaurantDetail = () => {
     };
     fetchData();
   }, []);
-  return <div>{selectedRestaurant && <StarRating rating={3.3} />}</div>;
+  return (
+    <div>
+      {selectedRestaurant && (
+        // fragments
+        <>
+          <div className="mt-3">
+            <Reviews />
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default RestaurantDetail;
