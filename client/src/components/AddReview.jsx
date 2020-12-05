@@ -30,6 +30,7 @@ const AddReview = () => {
           <label htmlFor="Review">Review</label>
           <textarea id="Review" className="form-control"></textarea>
         </div>
+        <br />
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>
