@@ -5,6 +5,7 @@ import {
   RestaurantContextProvider,
   RestaurantsContext,
 } from "../context/RestaurantsContext";
+import AddReview from "./AddReview";
 import Reviews from "./Reviews";
 import StarRating from "./StarRating";
 
@@ -34,6 +35,7 @@ const RestaurantDetail = () => {
           <div className="mt-3">
             <Reviews />
           </div>
+          <AddReview />
         </>
       )}
     </div>
