@@ -19,7 +19,8 @@ const RestaurantDetail = () => {
       try {
         const response = await RestaurantFinder.get(`/${id}`);
         // udate our global state
-        setSelectedRestaurant(response.data.data.restaurant);
+
+        setSelectedRestaurant(response.data.data);
         // console.log(response);
       } catch (error) {
         console.log(error);
@@ -33,7 +34,7 @@ const RestaurantDetail = () => {
         // fragments
         <>
           <div className="mt-3">
-            <Reviews />
+            <Reviews reviews={selectedRestaurant.reviews} />
           </div>
           <AddReview />
         </>
