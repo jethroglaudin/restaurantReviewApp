@@ -52,17 +52,17 @@ exports.getRestaurant = async (req, res) => {
     //   [req.params.id]
     // );
 
-    // const reviews = await db.query(
-    //   "select * from reviews where restaurant_id = $1",
-    //   [req.params.id]
-    // );
+    const reviews = await db.query(
+      "select * from reviews where restaurant_id = $1",
+      [req.params.id]
+    );
 
     // console.log(restaurant);
     res.status(200).json({
       status: "success",
       data: {
         restaurant: restaurant.rows[0],
-        // reviews: reviews.rows,
+        reviews: reviews.rows,
       },
     });
   } catch (error) {
