@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useHistory } from "react-router-dom";
+import StarRating from "./StarRating";
 
 export const RestaurantList = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
@@ -11,6 +12,7 @@ export const RestaurantList = (props) => {
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get("/");
+        console.log(response.data.data);
         setRestaurants(response.data.data.restaurants);
       } catch (error) {}
     };
@@ -41,6 +43,18 @@ export const RestaurantList = (props) => {
     history.push(`/restaurants/${id}`);
   };
 
+  const renderRating = (restaurant) => {
+    if (!restaurant.count) {
+      return <span className="text-warning">0 reviews</span>;
+    }
+    return (
+      <>
+        <StarRating rating={restaurant.id} />
+        <span className="text-warning ml-1">({restaurant.count})</span>
+      </>
+    );
+  };
+
   return (
     <div className="list-group">
       <table className="table table-hover table-dark">
@@ -66,7 +80,7 @@ export const RestaurantList = (props) => {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
-                  <td>reviews</td>
+                  <td>{renderRating(restaurant)}</td>
                   <td>
                     <button
                       onClick={(e) => handleUpdate(e, restaurant.id)}
