@@ -1,9 +1,31 @@
 import React, { useState } from "react";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import RestaurantFinder from "../apis/RestaurantFinder";
 
 const AddReview = () => {
+  const { id } = useParams();
+  const history = useHistory();
+  const location = useLocation();
   const [name, setName] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await RestaurantFinder.post(`/${id}/addReview`, {
+        name,
+        review: reviewText,
+        rating,
+      });
+      // figure out a more practical way to do a refresh here
+      // here we are quickly snapping to the home page then back to the current page
+      history.push("/");
+      history.push(location.pathname);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="mb-2">
       <form action="">
@@ -46,7 +68,13 @@ const AddReview = () => {
           ></textarea>
         </div>
         <br />
-        <button className="btn btn-primary">Submit</button>
+        <button
+          type="submit"
+          onClick={handleSubmitReview}
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
