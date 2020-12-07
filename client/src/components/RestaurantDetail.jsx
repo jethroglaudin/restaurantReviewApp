@@ -18,6 +18,7 @@ const RestaurantDetail = () => {
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get(`/${id}`);
+        console.log(response);
         // udate our global state
 
         setSelectedRestaurant(response.data.data);
@@ -33,6 +34,9 @@ const RestaurantDetail = () => {
       {selectedRestaurant && (
         // fragments
         <>
+          <h1 className={"text-center display-1"}>
+            {selectedRestaurant.restaurant.name}
+          </h1>
           <div className="mt-3">
             <Reviews reviews={selectedRestaurant.reviews} />
           </div>
