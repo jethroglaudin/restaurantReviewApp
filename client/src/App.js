@@ -6,6 +6,7 @@ import RestaurantDetailPage from "./routes/RestaurantDetailPage";
 import { RestaurantContextProvider } from "./context/RestaurantsContext";
 import Navbar from "../src/components/layout/Navbar";
 import "./App.css";
+import Footer from "./components/layout/Footer";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           </Switch>
         </Router>
       </div>
+      <Footer />
     </RestaurantContextProvider>
   );
 };
