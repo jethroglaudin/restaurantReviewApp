@@ -1,28 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Navbar = () => {
+  const logout = (e) => {
+    console.log("logging out");
+    // push to login page
+    // useHistory()
+  };
   return (
-    <nav className="navbar bg-dark">
-      <h1>Yelp 2.0</h1>
-      <ul>
+    <nav className="navbar bg-light">
+      <ul style={{ listStyle: "none" }}>
         <li>
-          <Link to="#">Developers</Link>
-        </li>
-        <li>
-          <Link to="#">Posts</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="#">
-            <i className="fas fa-user" />{" "}
-            <span className="hide-sm">Dashboard</span>
+            <span className="hide-sm">About</span>
           </Link>
         </li>
         <li>
-          {/* <a onClick={logout} href="#!"> */}
-          <i className="fas fa-sign-out-alt"></i>{" "}
-          <span className="hide-sm">Logout</span>
-          {/* </a> */}
+          <a onClick={logout} href="#!">
+            {/* <i className="fas fa-sign-out-alt"></i>{" "} */}
+            <span className="hide-sm">Logout</span>
+          </a>
         </li>
       </ul>
     </nav>
