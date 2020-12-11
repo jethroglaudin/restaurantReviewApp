@@ -16,7 +16,11 @@ const Login = () => {
     // run logging functionality
     return null;
   };
-  return <div></div>;
+  return (
+    <div>
+      <h1>Login Page</h1>
+    </div>
+  );
 };
 
 export default Login;
