@@ -6,6 +6,16 @@ const { User, validateUser } = require("../Models/User");
 // @access Public
 exports.test = async (req, res) => res.send("Hello World!");
 
+exports.currentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
 // @route POST api/users/register
 // @desc Register User
 // @access Public
@@ -18,7 +28,6 @@ exports.register = async (req, res) => {
           msg: error.message,
         },
       });
-      throw new Error(err);
     }
     // if (error) return res.status(400).send(error.details[0].message);
     const { name, userName, email, password, password2 } = req.body;
@@ -56,7 +65,6 @@ exports.login = async (req, res) => {
       throw new Error(err);
     }
 
-    
     const { email, userName, password } = req.body;
     const user = await User.findOne({ $or: [{ email }, { userName }] }).select(
       "+password"
@@ -69,8 +77,6 @@ exports.login = async (req, res) => {
           res.json(errors).details[0].message
         );
 
-    
-
     const isValidPassword = await user.matchPassword(password);
     if (!isValidPassword)
       return res
@@ -78,7 +84,6 @@ exports.login = async (req, res) => {
         .send("Invalid email or password", res.json(errors.details[0].message));
     // console.log(isValidPassword);
     // console.log(user);
-    
 
     const token = user.generateToken();
 
