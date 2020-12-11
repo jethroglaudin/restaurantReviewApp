@@ -7,6 +7,7 @@ import { RestaurantContextProvider } from "./context/RestaurantsContext";
 import Navbar from "../src/components/layout/Navbar";
 import "./App.css";
 import Footer from "./components/layout/Footer";
+import Login from "./components/auth/Login";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
             <Route
               exact
               path="/restaurants/:id/update"
