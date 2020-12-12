@@ -1,6 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import UserFinder from "../../apis/UserFinder";
+import AuthContext from "../../context/auth/authContext";
 
-const Login = () => {
+const Login = (props) => {
+  const authContext = useContext(AuthContext);
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  const { login, error, clearErrors, isAuthenticated } = authContext;
+  useEffect(() => {
+    // if (isAuthenticated) {
+    //   props.history.push("/");
+    // }
+    if (error) {
+      console.log(error);
+    }
+  }, [error, isAuthenticated, props.history]);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,11 +29,51 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // run logging functionality
-    return null;
+    if (email === "" || password === "") {
+      console.log("please fill all fields");
+      return;
+    } else {
+      login({
+        email,
+        password,
+      });
+    }
+
+    // const response = await UserFinder.post(`/login`, {
+    //   email,
+    //   password,
+    // });
   };
   return (
     <div>
-      <h1>Login Page</h1>
+      <h1 className="text-center">Login</h1>
+      <form action="">
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            value={email}
+            name="email"
+            onChange={onChange}
+            id="email"
+            className="form-control"
+            type="text"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name">Password</label>
+          <input
+            value={password}
+            name="password"
+            onChange={onChange}
+            id="password"
+            className="form-control"
+            type="text"
+          />
+        </div>
+        <button type="submit" onClick={onSubmit} className="btn btn-primary">
+          Login
+        </button>
+      </form>
     </div>
   );
 };
