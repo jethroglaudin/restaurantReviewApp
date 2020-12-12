@@ -13,6 +13,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
 } from "./types";
+import UserFinder from "../../apis/UserFinder";
 
 const AuthState = (props) => {
   const initialState = {
@@ -32,7 +33,7 @@ const AuthState = (props) => {
     }
 
     try {
-      const res = await axios.get("/api/auth");
+      const res = await UserFinder.get("/api/v1/users/");
 
       dispatch({
         type: USER_LOADED,
@@ -52,7 +53,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post("/api/users", formData, config);
+      const res = await axios.post("/api/v1/users/", formData, config);
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -78,7 +79,8 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post("/api/auth", formData, config);
+      // const res = await axios.post("/api/v1/users/", formData, config);
+      const res = await UserFinder.post("/login", formData);
 
       dispatch({
         type: LOGIN_SUCCESS,
