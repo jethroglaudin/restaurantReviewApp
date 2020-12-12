@@ -9,32 +9,41 @@ import "./App.css";
 import Footer from "./components/layout/Footer";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import AuthState from "./context/auth/AuthState";
+import setAuthToken from "./utils/setAuthToken";
+import PrivateRoute from "./components/PrivateRoute";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
-    <RestaurantContextProvider>
-      <div className="container">
+    <AuthState>
+      <RestaurantContextProvider>
         <Router>
           <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route
-              exact
-              path="/restaurants/:id/update"
-              component={UpdatePage}
-            />
-            <Route
-              exact
-              path="/restaurants/:id"
-              component={RestaurantDetailPage}
-            />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute
+                exact
+                path="/restaurants/:id/update"
+                component={UpdatePage}
+              />
+              <PrivateRoute
+                exact
+                path="/restaurants/:id"
+                component={RestaurantDetailPage}
+              />
+            </Switch>
+          </div>
         </Router>
-      </div>
-      <Footer />
-    </RestaurantContextProvider>
+        <Footer />
+      </RestaurantContextProvider>
+    </AuthState>
   );
 };
 
