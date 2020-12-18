@@ -60,6 +60,8 @@ Start production server.
 
 ```
 npm start
+```
+
 ## Built With
 
 - React
