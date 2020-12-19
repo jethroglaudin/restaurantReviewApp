@@ -27,13 +27,14 @@ const AuthState = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
-  const loadUser = async () => {
+  const loadUser = () => async dispatch => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
 
     try {
-      const res = await UserFinder.get("/api/v1/users/");
+      const res = await UserFinder.get("/");
+      console.log(res);
 
       dispatch({
         type: USER_LOADED,
@@ -46,15 +47,16 @@ const AuthState = (props) => {
 
   // Register User
   const register = async (formData) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     try {
-      const res = await axios.post("/api/v1/users/", formData, config);
+      const res = await UserFinder.post("/register", formData);
 
+      
       dispatch({
         type: REGISTER_SUCCESS,
         // res.data is going to be the token sent from the api route
@@ -65,18 +67,18 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.response.data.msg,
+        payload: err.response
       });
     }
   };
 
   // Login User
   const login = async (formData) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     try {
       // const res = await axios.post("/api/v1/users/", formData, config);
