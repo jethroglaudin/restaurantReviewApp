@@ -15,9 +15,9 @@ const auth = require("../middleware/auth");
 router.get("/test", test);
 router.get("/", allRestaurants);
 router.get("/:id", getRestaurant);
-router.post("/", createRestaurant);
-router.put("/:id", updateRestaurant);
-router.delete("/:id", deleteRestaurant);
-router.post("/:id/addReview", addReview);
+router.post("/", auth, createRestaurant);
+router.put("/:id", auth, updateRestaurant);
+router.delete("/:id", auth, deleteRestaurant);
+router.post("/:id/addReview", auth, addReview);
 
 module.exports = router;
