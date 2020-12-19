@@ -5,16 +5,19 @@ import {
   RestaurantContextProvider,
   RestaurantsContext,
 } from "../context/RestaurantsContext";
+import AuthContext from "../context/auth/authContext";
 import AddReview from "./AddReview";
 import Reviews from "./Reviews";
 import StarRating from "./StarRating";
 
 const RestaurantDetail = () => {
   const { id } = useParams();
+  const authContext = useContext(AuthContext);
   const { selectedRestaurant, setSelectedRestaurant } = useContext(
     RestaurantsContext
   );
   useEffect(() => {
+    authContext.loadUser();
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get(`/${id}`);
