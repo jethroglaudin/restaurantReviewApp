@@ -87,8 +87,8 @@ exports.login = async (req, res) => {
 
     const token = user.generateToken();
 
-    console.log(`Here is your token ${token}`);
-    res.header("x-auth-token", token).json({ token });
+    res.header("x-auth-token", token)
+    res.json({ token });
     // redirect to main page
   } catch (error) {
     res.status(500).json({ errors: error });
