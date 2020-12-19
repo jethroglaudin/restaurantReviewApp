@@ -9,9 +9,9 @@ const Login = (props) => {
 
   const { login, error, clearErrors, isAuthenticated } = authContext;
   useEffect(() => {
-    // if (isAuthenticated) {
-    //   props.history.push("/");
-    // }
+    if (isAuthenticated) {
+      props.history.push("/");
+    }
     if (error) {
       console.log(error);
     }
@@ -38,11 +38,6 @@ const Login = (props) => {
         password,
       });
     }
-
-    // const response = await UserFinder.post(`/login`, {
-    //   email,
-    //   password,
-    // });
   };
   return (
     <div>
