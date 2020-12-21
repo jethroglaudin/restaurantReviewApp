@@ -6,6 +6,9 @@ const { User, validateUser } = require("../Models/User");
 // @access Public
 exports.test = async (req, res) => res.send("Hello World!");
 
+// @route GET api/users/
+// @desc: Get logged in user
+// @access Private
 exports.currentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");

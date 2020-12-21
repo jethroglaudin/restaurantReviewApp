@@ -28,13 +28,13 @@ const AuthState = (props) => {
 
   // Load User
   const loadUser = () => async dispatch => {
-    if (localStorage.token) {
+    if (localStorage.getItem('token')) {
       setAuthToken(localStorage.token);
     }
 
     try {
       const res = await UserFinder.get("/");
-      console.log(res);
+    
 
       dispatch({
         type: USER_LOADED,
@@ -47,12 +47,6 @@ const AuthState = (props) => {
 
   // Register User
   const register = async (formData) => {
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
     try {
       const res = await UserFinder.post("/register", formData);
 
@@ -81,7 +75,6 @@ const AuthState = (props) => {
     // };
 
     try {
-      // const res = await axios.post("/api/v1/users/", formData, config);
       const res = await UserFinder.post("/login", formData);
 
       dispatch({

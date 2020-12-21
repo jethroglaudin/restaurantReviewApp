@@ -31,9 +31,8 @@ const Login = (props) => {
     // run logging functionality
     if (email === "" || password === "") {
       console.log("please fill all fields");
-      return;
     } else {
-      login({
+      await login({
         email,
         password,
       });

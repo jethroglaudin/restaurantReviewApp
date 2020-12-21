@@ -10,44 +10,44 @@ import {
 } from "./types";
 
 export default (state, action) => {
-  switch (action.type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload,
-      };
-
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
-      return {
-        ...state,
-        ...action.payload,
-        isAuthenticated: true,
-        loading: false,
-      };
-    case REGISTER_FAIL:
-    case LOGIN_FAIL:
-    case AUTH_ERROR:
-    case LOGOUT:
-      // Remove token from storage
-      localStorage.removeItem("token");
-      return {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-        user: null,
-        error: action.payload,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case USER_LOADED:
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: action.payload
+			};
+		case REGISTER_SUCCESS:
+		case LOGIN_SUCCESS:
+			// Get token from payload and set it to local storage
+			localStorage.setItem("token", action.payload.token);
+			return {
+				...state,
+				...action.payload,
+				isAuthenticated: true,
+				loading: false
+			};
+		case REGISTER_FAIL:
+		case LOGIN_FAIL:
+		case AUTH_ERROR:
+		case LOGOUT:
+			// Remove token from storage
+			localStorage.removeItem("token");
+			return {
+				...state,
+				token: null,
+				isAuthenticated: false,
+				loading: false,
+				user: null,
+				error: action.payload
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			};
+		default:
+			return state;
+	}
 };
