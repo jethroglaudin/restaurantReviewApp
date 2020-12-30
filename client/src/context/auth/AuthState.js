@@ -27,20 +27,24 @@ const AuthState = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
-  const loadUser = () => async dispatch => {
-    if (localStorage.getItem('token')) {
+  const loadUser = async () => {
+    if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
 
     try {
       const res = await UserFinder.get("/");
-    
+      if(!res){
+        console.log("No response");
+      }
 
       dispatch({
         type: USER_LOADED,
         payload: res.data,
       });
     } catch (err) {
+      // console.log("No response");
+      // console.log(err);
       dispatch({ type: AUTH_ERROR });
     }
   };
@@ -68,12 +72,6 @@ const AuthState = (props) => {
 
   // Login User
   const login = async (formData) => {
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
     try {
       const res = await UserFinder.post("/login", formData);
 
@@ -83,7 +81,7 @@ const AuthState = (props) => {
         payload: res.data,
       });
 
-      loadUser();
+      // loadUser();
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
