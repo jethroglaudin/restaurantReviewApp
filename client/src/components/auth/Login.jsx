@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserFinder from "../../apis/UserFinder";
 import AuthContext from "../../context/auth/authContext";
+// import loadUser from "../../context/auth/AuthState";
 
 const Login = (props) => {
   const authContext = useContext(AuthContext);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
 
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { login, error, clearErrors, isAuthenticated} = authContext;
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
